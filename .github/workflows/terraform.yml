@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [eks-cluster, aks-cluster]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.10"
+      - name: fmt check
+        run: terraform fmt -check -recursive
+      - name: init
+        run: terraform init -backend=false
+        working-directory: modules/${{ matrix.module }}
+      - name: validate
+        run: terraform validate
+        working-directory: modules/${{ matrix.module }}
+      - name: test
+        run: terraform test
+        working-directory: modules/${{ matrix.module }}
+        if: hashFiles(format('modules/{0}/tests/*.tftest.hcl', matrix.module)) != ''
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: latest
+      - run: tflint --init
+      - run: tflint --recursive
