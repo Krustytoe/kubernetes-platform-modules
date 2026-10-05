@@ -82,6 +82,12 @@ variable "log_analytics_workspace_id" {
   default     = null
 }
 
+variable "admin_group_object_ids" {
+  description = "Azure AD group object IDs granted cluster-admin via Azure RBAC. Empty list enables Azure RBAC without pre-assigned admin groups."
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "Tags merged onto every resource."
   type        = map(string)
