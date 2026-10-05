@@ -6,11 +6,6 @@ mock_provider "aws" {
       partition = "aws-us-gov"
     }
   }
-  mock_data "aws_caller_identity" {
-    defaults = {
-      account_id = "111111111111"
-    }
-  }
 }
 
 variables {

@@ -1,5 +1,4 @@
 data "aws_partition" "current" {}
-data "aws_caller_identity" "current" {}
 
 locals {
   partition = data.aws_partition.current.partition
