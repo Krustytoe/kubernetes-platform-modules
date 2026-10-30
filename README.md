@@ -1,5 +1,7 @@
 # kubernetes-platform-modules
 
+[![CI](https://github.com/Krustytoe/kubernetes-platform-modules/actions/workflows/terraform.yml/badge.svg)](https://github.com/Krustytoe/kubernetes-platform-modules/actions/workflows/terraform.yml) [![Release](https://img.shields.io/github/v/release/Krustytoe/kubernetes-platform-modules)](https://github.com/Krustytoe/kubernetes-platform-modules/releases/latest) [![License](https://img.shields.io/github/license/Krustytoe/kubernetes-platform-modules)](LICENSE)
+
 Opinionated Terraform modules for production-grade Kubernetes clusters on AWS and Azure. Both modules work unchanged in GovCloud / Azure Government environments.
 
 | Module | What it does | Key defaults |
@@ -47,7 +49,7 @@ provider "aws" {
 }
 
 module "eks" {
-  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/eks-cluster?ref=v0.1.0"
+  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/eks-cluster?ref=v0.1.1" # x-release-please-version
 
   name               = "platform-prod"
   kubernetes_version = "1.35"
@@ -64,7 +66,7 @@ provider "azurerm" {
 }
 
 module "aks" {
-  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/aks-cluster?ref=v0.1.0"
+  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/aks-cluster?ref=v0.1.1" # x-release-please-version
 
   name                = "platform-prod"
   location            = "usgovvirginia"
