@@ -19,7 +19,7 @@ module "aks" {
   name                = "platform-prod"
   location            = "usgovvirginia"
   resource_group_name = "platform-rg"
-  kubernetes_version  = "1.31"
+  kubernetes_version  = "1.35"
   subnet_id           = "/subscriptions/<subscription-id>/resourceGroups/platform-rg/providers/Microsoft.Network/virtualNetworks/platform-prod/subnets/app"
 
   additional_node_pools = {

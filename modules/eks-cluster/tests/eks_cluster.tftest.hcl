@@ -10,7 +10,7 @@ mock_provider "aws" {
 
 variables {
   name               = "unit-test"
-  kubernetes_version = "1.31"
+  kubernetes_version = "1.35"
   subnet_ids         = ["subnet-aaaa1111", "subnet-bbbb2222"]
 }
 

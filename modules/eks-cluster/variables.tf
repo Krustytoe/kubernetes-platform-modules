@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  description = "Kubernetes version, e.g. \"1.31\"."
+  description = "Kubernetes version, e.g. \"1.35\"."
   type        = string
 }
 

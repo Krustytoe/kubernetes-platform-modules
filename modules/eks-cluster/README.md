@@ -20,7 +20,7 @@ EKS cluster with managed node groups, KMS envelope encryption for Kubernetes sec
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `name` | string | — | Cluster name |
-| `kubernetes_version` | string | — | e.g. `"1.31"` |
+| `kubernetes_version` | string | — | e.g. `"1.35"` |
 | `subnet_ids` | list(string) | — | At least two AZs |
 | `endpoint_public_access` | bool | `false` | Enable public API endpoint |
 | `public_access_cidrs` | list(string) | `[]` | CIDRs for public endpoint |
