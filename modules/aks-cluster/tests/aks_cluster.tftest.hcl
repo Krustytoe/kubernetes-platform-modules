@@ -6,7 +6,7 @@ variables {
   name                = "unit-test"
   location            = "usgovvirginia"
   resource_group_name = "platform-rg"
-  kubernetes_version  = "1.31"
+  kubernetes_version  = "1.35"
   subnet_id           = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/platform-rg/providers/Microsoft.Network/virtualNetworks/vnet/subnets/app"
 }
 

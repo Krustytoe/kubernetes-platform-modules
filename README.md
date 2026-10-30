@@ -50,7 +50,7 @@ module "eks" {
   source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/eks-cluster?ref=v0.1.0"
 
   name               = "platform-prod"
-  kubernetes_version = "1.31"
+  kubernetes_version = "1.35"
   subnet_ids         = module.vpc.private_subnet_ids
   tags               = { env = "prod" }
 }
@@ -69,7 +69,7 @@ module "aks" {
   name                = "platform-prod"
   location            = "usgovvirginia"
   resource_group_name = "platform-rg"
-  kubernetes_version  = "1.31"
+  kubernetes_version  = "1.35"
   subnet_id           = module.vnet.subnet_ids["app"]
   tags                = { env = "prod" }
 }

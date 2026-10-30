@@ -23,7 +23,7 @@ AKS cluster with workload identity, Azure RBAC, network policy, and optional Log
 | `name` | string | — | Cluster name |
 | `location` | string | — | Azure region |
 | `resource_group_name` | string | — | Must already exist |
-| `kubernetes_version` | string | — | e.g. `"1.31"` |
+| `kubernetes_version` | string | — | e.g. `"1.35"` |
 | `subnet_id` | string | — | Subnet for all node pools |
 | `private_cluster` | bool | `true` | Disable public API endpoint |
 | `system_node_pool` | object | Standard_D4s_v3 ×2 | System pool config |
