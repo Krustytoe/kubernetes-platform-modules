@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Krustytoe/kubernetes-platform-modules/compare/v0.1.1...v0.1.2) (2026-10-30)
+
+
+### Bug Fixes
+
+* move examples and tests from Kubernetes 1.31 to 1.35 ([#10](https://github.com/Krustytoe/kubernetes-platform-modules/issues/10)) ([5ad3b2d](https://github.com/Krustytoe/kubernetes-platform-modules/commit/5ad3b2d6a4660cb42057fc5fb91643617f0fbe4e))
+
 ## [0.1.1](https://github.com/Krustytoe/kubernetes-platform-modules/compare/v0.1.0...v0.1.1) (2026-10-06)
 
 
