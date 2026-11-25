@@ -5,6 +5,17 @@ resource "azurerm_user_assigned_identity" "this" {
   tags                = var.tags
 }
 
+# Customer-managed-key disk encryption: AKS needs the cluster identity to read the disk encryption set
+# before the cluster is created, and the identity is created here, so the grant must live in this module.
+resource "azurerm_role_assignment" "disk_encryption_set_reader" {
+  count = var.disk_encryption_set_id != null ? 1 : 0
+
+  scope                = var.disk_encryption_set_id
+  role_definition_name = "Reader"
+  principal_id         = azurerm_user_assigned_identity.this.principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 resource "azurerm_kubernetes_cluster" "this" {
   name                = var.name
   location            = var.location
@@ -13,6 +24,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   kubernetes_version  = var.kubernetes_version
 
   private_cluster_enabled = var.private_cluster
+  azure_policy_enabled    = var.azure_policy_enabled
+  disk_encryption_set_id  = var.disk_encryption_set_id
 
   # Workload identity + OIDC issuer: required for pod-level Azure RBAC without mounted service account secrets.
   workload_identity_enabled = true
@@ -56,6 +69,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   tags = var.tags
+
+  depends_on = [azurerm_role_assignment.disk_encryption_set_reader]
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "this" {
