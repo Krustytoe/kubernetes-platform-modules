@@ -59,7 +59,7 @@ provider "aws" {
 }
 
 module "eks" {
-  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/eks-cluster?ref=v0.2.0" # x-release-please-version
+  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/eks-cluster?ref=v0.3.0" # x-release-please-version
 
   name               = "platform-prod"
   kubernetes_version = "1.35"
@@ -84,7 +84,7 @@ provider "azurerm" {
 }
 
 module "aks" {
-  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/aks-cluster?ref=v0.2.0" # x-release-please-version
+  source = "git::https://github.com/Krustytoe/kubernetes-platform-modules.git//modules/aks-cluster?ref=v0.3.0" # x-release-please-version
 
   name                = "platform-prod"
   location            = "usgovvirginia"

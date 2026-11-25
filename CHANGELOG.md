@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/Krustytoe/kubernetes-platform-modules/compare/v0.2.0...v0.3.0) (2026-11-25)
+
+
+### Features
+
+* add Azure Policy add-on and customer-managed-key disk encryption to aks-cluster ([#17](https://github.com/Krustytoe/kubernetes-platform-modules/issues/17)) ([5964b49](https://github.com/Krustytoe/kubernetes-platform-modules/commit/5964b494a66715b89d07f54eb1e2f18c63751b6b))
+
 ## [0.2.0](https://github.com/Krustytoe/kubernetes-platform-modules/compare/v0.1.2...v0.2.0) (2026-11-25)
 
 
