@@ -63,10 +63,51 @@ variable "node_groups" {
   }
 }
 
+variable "authentication_mode" {
+  description = "Cluster authentication mode. \"API\" uses EKS access entries only; \"API_AND_CONFIG_MAP\" is the migration step for clusters still using the aws-auth ConfigMap."
+  type        = string
+  default     = "API"
+
+  validation {
+    condition     = contains(["API", "API_AND_CONFIG_MAP"], var.authentication_mode)
+    error_message = "authentication_mode must be \"API\" or \"API_AND_CONFIG_MAP\"; CONFIG_MAP alone is not supported by this module."
+  }
+}
+
+variable "bootstrap_cluster_creator_admin_permissions" {
+  description = "Grant the identity that creates the cluster cluster-admin. Off by default: grant access explicitly with access_entries. Changing this forces cluster replacement."
+  type        = bool
+  default     = false
+}
+
+variable "access_entries" {
+  description = <<-EOT
+    EKS access entries keyed by a stable name. policy_associations maps an EKS access policy name
+    (AmazonEKSClusterAdminPolicy, AmazonEKSAdminPolicy, AmazonEKSEditPolicy, AmazonEKSViewPolicy, ...)
+    to its scope: no namespaces = cluster-wide, otherwise limited to the listed namespaces.
+  EOT
+  type = map(object({
+    principal_arn     = string
+    kubernetes_groups = optional(list(string))
+    policy_associations = optional(map(object({
+      namespaces = optional(list(string), [])
+    })), {})
+  }))
+  default = {}
+}
+
 variable "addons" {
-  description = "EKS managed add-ons to enable."
-  type        = list(string)
-  default     = ["vpc-cni", "coredns", "kube-proxy", "aws-ebs-csi-driver"]
+  description = "EKS managed add-ons keyed by add-on name. addon_version = null uses the default version for kubernetes_version; set it to pin. aws-ebs-csi-driver requires eks-pod-identity-agent."
+  type = map(object({
+    addon_version = optional(string)
+  }))
+  default = {
+    vpc-cni                = {}
+    coredns                = {}
+    kube-proxy             = {}
+    eks-pod-identity-agent = {}
+    aws-ebs-csi-driver     = {}
+  }
 }
 
 variable "tags" {

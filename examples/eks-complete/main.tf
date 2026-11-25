@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.0, < 7.0"
+      version = ">= 5.40, < 7.0"
     }
   }
 }
@@ -11,6 +11,9 @@ terraform {
 provider "aws" {
   region = "us-gov-west-1"
 }
+
+data "aws_caller_identity" "current" {}
+data "aws_partition" "current" {}
 
 module "eks" {
   source = "../../modules/eks-cluster"
@@ -33,6 +36,23 @@ module "eks" {
       desired_size   = 3
       min_size       = 0
       max_size       = 20
+    }
+  }
+
+  # Explicit access instead of implicit creator-admin: platform team gets cluster-admin,
+  # an app team gets edit rights in its own namespace only.
+  access_entries = {
+    platform-admins = {
+      principal_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/platform-admins"
+      policy_associations = {
+        AmazonEKSClusterAdminPolicy = {}
+      }
+    }
+    payments-team = {
+      principal_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/payments-developers"
+      policy_associations = {
+        AmazonEKSEditPolicy = { namespaces = ["payments"] }
+      }
     }
   }
 
