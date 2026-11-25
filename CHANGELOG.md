@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/Krustytoe/kubernetes-platform-modules/compare/v0.1.2...v0.2.0) (2026-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eks-cluster:** addons is now map(object({ addon_version = optional(string) })) instead of list(string). New default bootstrap_cluster_creator_admin_permissions = false forces replacement of clusters created by 0.1.x; set it to true for existing clusters. CONFIG_MAP clusters must step through API_AND_CONFIG_MAP. See modules/eks-cluster/README.md "Upgrading from 0.1.x".
+
+### Features
+
+* **eks-cluster:** access entries, Pod Identity for EBS CSI, explicit add-on versions ([#13](https://github.com/Krustytoe/kubernetes-platform-modules/issues/13)) ([ca19635](https://github.com/Krustytoe/kubernetes-platform-modules/commit/ca19635fe4b13a64c8b8a75d4be3f4c855e32647))
+
 ## [0.1.2](https://github.com/Krustytoe/kubernetes-platform-modules/compare/v0.1.1...v0.1.2) (2026-10-30)
 
 
