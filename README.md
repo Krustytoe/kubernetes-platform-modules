@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/Krustytoe/kubernetes-platform-modules/actions/workflows/terraform.yml/badge.svg)](https://github.com/Krustytoe/kubernetes-platform-modules/actions/workflows/terraform.yml) [![Release](https://img.shields.io/github/v/release/Krustytoe/kubernetes-platform-modules)](https://github.com/Krustytoe/kubernetes-platform-modules/releases/latest) [![License](https://img.shields.io/github/license/Krustytoe/kubernetes-platform-modules)](LICENSE)
 
+> **When to use this repo:** Use this repo when you need reusable, security-hardened infrastructure templates to stand up managed Kubernetes clusters on AWS (EKS) or Azure (AKS) in commercial or government clouds.
+
 Opinionated Terraform modules for production-grade Kubernetes clusters on AWS and Azure. Both modules work unchanged in GovCloud / Azure Government environments.
 
 | Module | What it does | Key defaults |
