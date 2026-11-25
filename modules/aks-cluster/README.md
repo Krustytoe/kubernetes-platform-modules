@@ -15,6 +15,15 @@ AKS cluster with workload identity, Azure RBAC, network policy, and optional Log
 | Azure RBAC | Kubernetes RBAC backed by Entra ID — no local cluster-admin credentials |
 | Azure network policy | Pod-to-pod traffic controlled at the network layer |
 | User-assigned managed identity | Explicit identity lifecycle separate from cluster lifecycle |
+| Azure Policy add-on | Azure Policy assignments (e.g. pod security baselines) are enforced in-cluster. Needs the `Microsoft.PolicyInsights` resource provider registered |
+
+## Customer-managed-key disk encryption
+
+Set `disk_encryption_set_id` to encrypt node OS and data disks with your own key. It's off by default because it needs a disk encryption set and Key Vault that you provide:
+
+- The disk encryption set's own identity must already have key access in its Key Vault.
+- The module grants the cluster identity **Reader** on the set before creating the cluster, so whoever runs `apply` needs permission to create role assignments on it (e.g. User Access Administrator).
+- Adding, changing or removing it on an existing cluster **forces cluster replacement**. Decide before the first apply.
 
 ## Inputs
 
@@ -32,6 +41,8 @@ AKS cluster with workload identity, Azure RBAC, network policy, and optional Log
 | `service_cidr` | string | `172.16.0.0/16` | Kubernetes service CIDR |
 | `dns_service_ip` | string | `172.16.0.10` | Cluster DNS IP |
 | `log_analytics_workspace_id` | string | `null` | OMS agent workspace |
+| `azure_policy_enabled` | bool | `true` | Azure Policy add-on |
+| `disk_encryption_set_id` | string | `null` | Disk encryption set for customer-managed-key disk encryption; `null` uses platform-managed keys |
 | `tags` | map(string) | `{}` | Extra tags |
 
 ## Outputs

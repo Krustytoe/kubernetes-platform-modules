@@ -9,7 +9,7 @@ Opinionated Terraform modules for production-grade Kubernetes clusters on AWS an
 | Module | What it does | Key defaults |
 |---|---|---|
 | [`eks-cluster`](modules/eks-cluster) | EKS cluster with managed node groups, KMS secrets encryption, access entries, Pod Identity, and core add-ons | Private API endpoint; access entries only, no implicit creator-admin; IMDSv2 enforced; EBS CSI via Pod Identity; all control-plane logs on; rotating CMK for secrets |
-| [`aks-cluster`](modules/aks-cluster) | AKS cluster with workload identity, Azure RBAC, and network policy | Private cluster; OIDC issuer + workload identity enabled; Azure network policy; user-assigned identity |
+| [`aks-cluster`](modules/aks-cluster) | AKS cluster with workload identity, Azure RBAC, network policy, Azure Policy, and optional customer-managed-key disk encryption | Private cluster; OIDC issuer + workload identity enabled; Azure network policy; Azure Policy add-on on; user-assigned identity |
 
 ## Architecture
 
@@ -38,11 +38,15 @@ flowchart TB
     awi["OIDC issuer + workload identity<br/>pods get Azure tokens, no stored secrets"]
     anp["System + user node pools<br/>Azure CNI, network policy azure or calico<br/>max surge 33%"]
     ala["Container Insights<br/>optional Log Analytics"]
+    apol["Azure Policy add-on<br/>on by default"]
+    ades["Disk encryption set<br/>optional customer-managed key"]
     aid --> aapi
     arbac --> aapi
     aapi --> awi
     aapi --> anp
     aapi -.-> ala
+    apol --> aapi
+    ades -. "encrypts node disks" .-> anp
   end
 ```
 

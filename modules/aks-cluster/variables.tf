@@ -82,6 +82,23 @@ variable "log_analytics_workspace_id" {
   default     = null
 }
 
+variable "azure_policy_enabled" {
+  description = "Enable the Azure Policy add-on so Azure Policy assignments (e.g. pod security baselines) are enforced in-cluster. Secure default: true. Requires the Microsoft.PolicyInsights resource provider to be registered in the subscription. Set false only if policy is enforced another way."
+  type        = bool
+  default     = true
+}
+
+variable "disk_encryption_set_id" {
+  description = "Disk encryption set resource ID for customer-managed-key encryption of node OS and data disks. Null (default) uses platform-managed keys. When set, the module grants the cluster identity Reader on the set, so the deployer needs permission to create role assignments there. The set's own identity needs key access to its Key Vault. Changing this value on an existing cluster forces cluster replacement."
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.disk_encryption_set_id == null || can(regex("(?i)^/subscriptions/[^/]+/resourceGroups/[^/]+/providers/Microsoft\\.Compute/diskEncryptionSets/[^/]+$", var.disk_encryption_set_id))
+    error_message = "disk_encryption_set_id must be a disk encryption set resource ID: /subscriptions/<id>/resourceGroups/<rg>/providers/Microsoft.Compute/diskEncryptionSets/<name>."
+  }
+}
+
 variable "admin_group_object_ids" {
   description = "Azure AD group object IDs granted cluster-admin via Azure RBAC. Empty list enables Azure RBAC without pre-assigned admin groups."
   type        = list(string)
