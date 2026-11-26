@@ -13,7 +13,7 @@ Opinionated, secure-by-default Terraform modules for Kubernetes clusters on AWS 
 - `modules/aks-cluster/`: AKS module, same file layout, tests in `tests/aks_cluster.tftest.hcl`.
 - `examples/eks-complete/`, `examples/aks-complete/`: full usage examples consuming the modules via relative `source`.
 - `.tflint.hcl`: tflint config (terraform `recommended` preset, aws and azurerm rulesets).
-- `.github/workflows/`: `terraform.yml` (CI), `security.yml` (Trivy config scan, HIGH/CRITICAL), `release-please.yml`, `dependabot-auto-merge.yml`.
+- `.github/workflows/`: `terraform.yml` (CI), `security.yml` (Trivy config scan, HIGH/CRITICAL), `release-please.yml`, `scorecard.yml` (OpenSSF Scorecard), `dependabot-auto-merge.yml`.
 - `release-please-config.json`, `.release-please-manifest.json`, `CHANGELOG.md`: release automation.
 - `.terraform.lock.hcl` files are committed in each module and example directory.
 
